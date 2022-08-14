@@ -16,49 +16,87 @@ import java.util.Optional;
 @RequestMapping("employee")
 public class EmployeeController {
     EmployeeRepository employeeRepository;
-    AddressRepository addressRepository;
-    ContactRepository contactRepository;
-    VisaStatusRepository visaStatusRepository;
-    PersonalDocumentRepository personalDocumentRepository;
+//    AddressRepository addressRepository;
+//    ContactRepository contactRepository;
+//    VisaStatusRepository visaStatusRepository;
+//    PersonalDocumentRepository personalDocumentRepository;
 
     @Autowired
     public void setEmployeeRepository(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    @Autowired
-    public void setAddressRepository(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
-    }
-
-    @Autowired
-    public void setContactRepository(ContactRepository contactRepository) {
-        this.contactRepository = contactRepository;
-    }
-
-    @Autowired
-    public void setPersonalDocumentRepository(PersonalDocumentRepository personalDocumentRepository) {
-        this.personalDocumentRepository = personalDocumentRepository;
-    }
-
-    @Autowired
-    public void setVisaStatusRepository(VisaStatusRepository visaStatusRepository) {
-        this.visaStatusRepository = visaStatusRepository;
-    }
+//    @Autowired
+//    public void setAddressRepository(AddressRepository addressRepository) {
+//        this.addressRepository = addressRepository;
+//    }
+//
+//    @Autowired
+//    public void setContactRepository(ContactRepository contactRepository) {
+//        this.contactRepository = contactRepository;
+//    }
+//
+//    @Autowired
+//    public void setPersonalDocumentRepository(PersonalDocumentRepository personalDocumentRepository) {
+//        this.personalDocumentRepository = personalDocumentRepository;
+//    }
+//
+//    @Autowired
+//    public void setVisaStatusRepository(VisaStatusRepository visaStatusRepository) {
+//        this.visaStatusRepository = visaStatusRepository;
+//    }
 
     @PostMapping("add")
     public SingleEmployeeResponse CreateNewEmployee(@RequestBody Employee employee) {
         List<Address> addressList = employee.getAddress();
+        for(int i = 1;i<addressList.size()+1;i++) {
+            addressList.get(i-1).setId(i);
+        }
+
         List<Contact> contactList = employee.getContact();
+        for(int i = 1;i<contactList.size()+1;i++) {
+            contactList.get(i-1).setId(i);
+        }
+
         List<VisaStatus> visaStatusList = employee.getVisaStatus();
+        for(int i = 1;i<visaStatusList.size()+1;i++) {
+            visaStatusList.get(i-1).setId(i);
+        }
+
         List<PersonalDocument> personalDocumentList = employee.getPersonalDocument();
+        for(int i = 1;i<personalDocumentList.size()+1;i++) {
+            personalDocumentList.get(i-1).setId(i);
+        }
 
-        addressRepository.saveAll(addressList);
-        contactRepository.saveAll(contactList);
-        visaStatusRepository.saveAll(visaStatusList);
-        personalDocumentRepository.saveAll(personalDocumentList);
+//        addressRepository.saveAll(addressList);
+//        contactRepository.saveAll(contactList);
+//        visaStatusRepository.saveAll(visaStatusList);
+//        personalDocumentRepository.saveAll(personalDocumentList);
 
-        Employee newEmployee = employeeRepository.save(employee);
+        Employee newEmployee = Employee.builder()
+                .userId(employee.getUserId())
+                .firstName(employee.getFirstName())
+                .lastName(employee.getLastName())
+                .middleName(employee.getMiddleName())
+                .preferredName(employee.getPreferredName())
+                .email(employee.getEmail())
+                .cellPhone(employee.getCellPhone())
+                .alternatePhone(employee.getAlternatePhone())
+                .gender(employee.getGender())
+                .ssn(employee.getSsn())
+                .dob(employee.getDob())
+                .startDate(employee.getStartDate())
+                .endDate(employee.getEndDate())
+                .driverLicense(employee.getDriverLicense())
+                .driverLicenseExpiration(employee.getDriverLicenseExpiration())
+                .houseId(employee.getHouseId())
+                .contact(contactList)
+                .address(addressList)
+                .visaStatus(visaStatusList)
+                .personalDocument(personalDocumentList)
+                .build();
+
+        employeeRepository.save(newEmployee);
 
         return SingleEmployeeResponse.builder()
                 .responseStatus(

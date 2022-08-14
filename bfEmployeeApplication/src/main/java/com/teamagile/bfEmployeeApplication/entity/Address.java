@@ -19,7 +19,7 @@ import org.springframework.data.annotation.Id;
 @ToString
 public class Address {
 	@Id
-	String id;
+	Integer id;
 	
 	String addressLine1;
 	

@@ -20,7 +20,7 @@ import org.springframework.data.annotation.Id;
 public class Contact {
 
 	@Id
-	String id;
+	Integer id;
 	
 	String firstName;
 	

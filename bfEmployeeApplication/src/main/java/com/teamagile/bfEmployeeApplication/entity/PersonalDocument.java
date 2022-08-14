@@ -19,7 +19,7 @@ import org.springframework.data.annotation.Id;
 public class PersonalDocument {
 
 	@Id
-	String id;
+	Integer id;
 	
 	String path;
 	

@@ -19,7 +19,7 @@ import org.springframework.data.annotation.Id;
 public class VisaStatus {
 
 	@Id
-	String id;
+	Integer id;
 	
 	String visaType;
 	

@@ -16,35 +16,11 @@ import java.util.Optional;
 @RequestMapping("employee")
 public class EmployeeController {
     EmployeeRepository employeeRepository;
-//    AddressRepository addressRepository;
-//    ContactRepository contactRepository;
-//    VisaStatusRepository visaStatusRepository;
-//    PersonalDocumentRepository personalDocumentRepository;
 
     @Autowired
     public void setEmployeeRepository(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
-
-//    @Autowired
-//    public void setAddressRepository(AddressRepository addressRepository) {
-//        this.addressRepository = addressRepository;
-//    }
-//
-//    @Autowired
-//    public void setContactRepository(ContactRepository contactRepository) {
-//        this.contactRepository = contactRepository;
-//    }
-//
-//    @Autowired
-//    public void setPersonalDocumentRepository(PersonalDocumentRepository personalDocumentRepository) {
-//        this.personalDocumentRepository = personalDocumentRepository;
-//    }
-//
-//    @Autowired
-//    public void setVisaStatusRepository(VisaStatusRepository visaStatusRepository) {
-//        this.visaStatusRepository = visaStatusRepository;
-//    }
 
     @PostMapping("add")
     public SingleEmployeeResponse CreateNewEmployee(@RequestBody Employee employee) {
@@ -67,11 +43,6 @@ public class EmployeeController {
         for(int i = 1;i<personalDocumentList.size()+1;i++) {
             personalDocumentList.get(i-1).setId(i);
         }
-
-//        addressRepository.saveAll(addressList);
-//        contactRepository.saveAll(contactList);
-//        visaStatusRepository.saveAll(visaStatusList);
-//        personalDocumentRepository.saveAll(personalDocumentList);
 
         Employee newEmployee = Employee.builder()
                 .userId(employee.getUserId())
@@ -124,8 +95,8 @@ public class EmployeeController {
                 .build();
     }
 
-    @GetMapping("userId")
-    public EmployeesResponse GetEmployeeByUserId(@RequestParam Integer userId) {
+    @GetMapping("userId/{userId}")
+    public EmployeesResponse GetEmployeeByUserId(@PathVariable Integer userId) {
         List<Employee> employees = employeeRepository.findEmployeesByuserId(userId);
 
         return EmployeesResponse.builder()
@@ -139,8 +110,8 @@ public class EmployeeController {
                 .build();
     }
 
-    @GetMapping("email")
-    public EmployeesResponse GetEmployeeByEmail(@RequestParam String email) {
+    @GetMapping("email/{email}")
+    public EmployeesResponse GetEmployeeByEmail(@PathVariable String email) {
         List<Employee> employees = employeeRepository.findEmployeesByEmail(email);
 
         return EmployeesResponse.builder()

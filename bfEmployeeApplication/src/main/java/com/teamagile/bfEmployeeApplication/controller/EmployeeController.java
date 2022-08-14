@@ -95,6 +95,31 @@ public class EmployeeController {
                 .build();
     }
 
+    @GetMapping("{id}")
+    public SingleEmployeeResponse GetEmployeeById(@PathVariable String id) {
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);
+        if (!employeeOptional.isPresent()) {
+            return SingleEmployeeResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find employee")
+                                    .build()
+                    )
+                    .employee(null)
+                    .build();
+        }
+        return SingleEmployeeResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Deleted Employee")
+                                .build()
+                )
+                .employee(employeeOptional.get())
+                .build();
+    }
+
     @GetMapping("userId/{userId}")
     public EmployeesResponse GetEmployeeByUserId(@PathVariable Integer userId) {
         List<Employee> employees = employeeRepository.findEmployeesByuserId(userId);
@@ -126,8 +151,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("delete")
-    public SingleEmployeeResponse DeleteEmployeeByEmail(@RequestParam String Id) {
-        Optional<Employee> employeeOptional = employeeRepository.findEmployeeById(Id);
+    public SingleEmployeeResponse DeleteEmployeeByEmail(@RequestParam String id) {
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);
 
         if (!employeeOptional.isPresent()) {
             return SingleEmployeeResponse.builder()
@@ -141,7 +166,7 @@ public class EmployeeController {
                     .build();
         }
 
-        employeeRepository.deleteEmployeeById(Id);
+        employeeRepository.deleteEmployeeByid(id);
 
 
         return SingleEmployeeResponse.builder()
@@ -153,9 +178,81 @@ public class EmployeeController {
                     )
                     .employee(employeeOptional.get())
                     .build();
+    }
+
+
+    @PatchMapping("update/{id}")
+    public SingleEmployeeResponse updateEmployeeById(@PathVariable String id,
+                                                     @RequestBody Employee employee) {
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);
+
+        if (!employeeOptional.isPresent()) {
+            return SingleEmployeeResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find employee")
+                                    .build()
+                    )
+                    .employee(null)
+                    .build();
         }
 
+        List<Address> addressList = employee.getAddress();
+        for(int i = 1;i<addressList.size()+1;i++) {
+            addressList.get(i-1).setId(i);
+        }
 
+        List<Contact> contactList = employee.getContact();
+        for(int i = 1;i<contactList.size()+1;i++) {
+            contactList.get(i-1).setId(i);
+        }
+
+        List<VisaStatus> visaStatusList = employee.getVisaStatus();
+        for(int i = 1;i<visaStatusList.size()+1;i++) {
+            visaStatusList.get(i-1).setId(i);
+        }
+
+        List<PersonalDocument> personalDocumentList = employee.getPersonalDocument();
+        for(int i = 1;i<personalDocumentList.size()+1;i++) {
+            personalDocumentList.get(i-1).setId(i);
+        }
+
+        Employee updated_employee = employeeOptional.get();
+
+        updated_employee.setUserId(employee.getUserId());
+        updated_employee.setFirstName(employee.getFirstName());
+        updated_employee.setLastName(employee.getLastName());
+        updated_employee.setMiddleName(employee.getMiddleName());
+        updated_employee.setPreferredName(employee.getPreferredName());
+        updated_employee.setEmail(employee.getEmail());
+        updated_employee.setCellPhone(employee.getCellPhone());
+        updated_employee.setAlternatePhone(employee.getAlternatePhone());
+        updated_employee.setGender(employee.getGender());
+        updated_employee.setSsn(employee.getSsn());
+        updated_employee.setDob(employee.getDob());
+        updated_employee.setStartDate(employee.getStartDate());
+        updated_employee.setEndDate(employee.getEndDate());
+        updated_employee.setDriverLicense(employee.getDriverLicense());
+        updated_employee.setDriverLicenseExpiration(employee.getDriverLicenseExpiration());
+        updated_employee.setHouseId(employee.getHouseId());
+        updated_employee.setContact(contactList);
+        updated_employee.setAddress(addressList);
+        updated_employee.setVisaStatus(visaStatusList);
+        updated_employee.setPersonalDocument(personalDocumentList);
+
+        employeeRepository.save(updated_employee);
+
+        return SingleEmployeeResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully updating employee!")
+                                .build()
+                )
+                .employee(updated_employee)
+                .build();
+    }
 }
 
 

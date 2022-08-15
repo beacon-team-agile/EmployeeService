@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "dff05ad4-b3b3-42fe-8f75-d2c6f8020a88",
+		"name": "employee-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21992586"
+	},
+	"item": [
+		{
+			"name": "AddNewEmployee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : 2,\r\n    \"firstName\" : \"test_fn_2\",\r\n    \"lastName\" :  \"test_ln_2\",\r\n    \"middleName\" : \"\",\r\n    \"preferredName\" : \"\",\r\n    \"email\" : \"test_email@email.com\",\r\n    \"cellPhone\" : \"2234567890\",\r\n    \"alternatePhone\" : \"\",\r\n    \"gender\" : \"female\",\r\n    \"ssn\" : \"1234567\",\r\n    \"dob\" : \"\",\r\n    \"startDate\" : \"\",\r\n    \"endDate\" : \"\",\r\n    \"driverLicense\" :  \"\",\r\n    \"driverLicenseExpiration\" : \"\",\r\n\r\n    \"contact\" : [\r\n\r\n    {\r\n        \"firstName\" : \"test_fn_contact_2\",\r\n        \"lastName\" :  \"test_ln_contact_2\",\r\n    \t\"cellPhone\" : \"1234567890\",\r\n        \"alternatePhone\" : \"\",\r\n    \t\"email\" : \"test_contact_email@email.com\",\r\n    \t\"relationship\" : \"parents\",\r\n    \t\"type\" : \"\"\r\n    }\r\n\r\n    ],\r\n\r\n    \"address\" : [\r\n\r\n    {\r\n        \"addressLine1\" : \"\",\r\n    \t\"addressLine2\" : \"\",\r\n    \t\"city\" : \"\",\r\n    \t\"state\" : \"\",\r\n    \t\"zipCode\" : \"\"\r\n    }\r\n    ],\r\n\r\n    \"visaStatus\" : [\r\n\r\n    {\r\n        \"visaType\" : \"\",\r\n        \"activeFlag\" : \"\",\r\n        \"startDate\" : \"\",\r\n        \"endDate\" : \"\",\r\n        \"lastModificationDate\" : \"\"\r\n    }\r\n    ],\r\n\r\n    \"personalDocument\" : [\r\n    {\r\n        \"path\" : \"\",\r\n        \"title\" : \"\",\r\n        \"comment\" : \"\",\r\n        \"createDate\" : \"\"\r\n    }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/employee-service/employee/userId?userId=0",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/userId?userId=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"userId"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEmployeeByEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/email/?email=test_email@email.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"email",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_email@email.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEmployeeById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/62f94fe7b4859e6718b2bcba",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"62f94fe7b4859e6718b2bcba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateEmployeeById",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : 2,\r\n    \"firstName\" : \"test_fn_2\",\r\n    \"lastName\" :  \"test_ln_2\",\r\n    \"middleName\" : \"\",\r\n    \"preferredName\" : \"\",\r\n    \"email\" : \"test_email@email.com\",\r\n    \"cellPhone\" : \"2234567890\",\r\n    \"alternatePhone\" : \"\",\r\n    \"gender\" : \"female\",\r\n    \"ssn\" : \"1234567\",\r\n    \"dob\" : \"\",\r\n    \"startDate\" : \"\",\r\n    \"endDate\" : \"\",\r\n    \"driverLicense\" :  \"\",\r\n    \"driverLicenseExpiration\" : \"\",\r\n    \"houseId\" : 1,\r\n    \"contact\" : [\r\n\r\n    {\r\n        \"firstName\" : \"test_fn_contact_1\",\r\n        \"lastName\" :  \"test_ln_contact_1\",\r\n    \t\"cellPhone\" : \"1234567890\",\r\n        \"alternatePhone\" : \"\",\r\n    \t\"email\" : \"test_contact_email@email.com\",\r\n    \t\"relationship\" : \"parents\",\r\n    \t\"type\" : \"\"\r\n    }\r\n\r\n    ],\r\n\r\n    \"address\" : [\r\n\r\n    {\r\n        \"addressLine1\" : \"\",\r\n    \t\"addressLine2\" : \"\",\r\n    \t\"city\" : \"\",\r\n    \t\"state\" : \"\",\r\n    \t\"zipCode\" : \"\"\r\n    }\r\n    ],\r\n\r\n    \"visaStatus\" : [\r\n\r\n    {\r\n        \"visaType\" : \"\",\r\n        \"activeFlag\" : \"\",\r\n        \"startDate\" : \"\",\r\n        \"endDate\" : \"\",\r\n        \"lastModificationDate\" : \"\"\r\n    }\r\n    ],\r\n\r\n    \"personalDocument\" : [\r\n    {\r\n        \"path\" : \"\",\r\n        \"title\" : \"\",\r\n        \"comment\" : \"\",\r\n        \"createDate\" : \"\"\r\n    },\r\n    {\r\n        \"path\" : \"\",\r\n        \"title\" : \"\",\r\n        \"comment\" : \"\",\r\n        \"createDate\" : \"\"\r\n    }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/employee-service/employee/update/62f9717fafd8a52a954a05fa",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"employee-service",
+						"employee",
+						"update",
+						"62f9717fafd8a52a954a05fa"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

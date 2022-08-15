@@ -135,8 +135,8 @@ public class EmployeeController {
                 .build();
     }
 
-    @GetMapping("email/{email}")
-    public EmployeesResponse GetEmployeeByEmail(@PathVariable String email) {
+    @GetMapping("email")
+    public EmployeesResponse GetEmployeeByEmail(@RequestParam String email) {
         List<Employee> employees = employeeRepository.findEmployeesByEmail(email);
 
         return EmployeesResponse.builder()

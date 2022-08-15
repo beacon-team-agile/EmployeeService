@@ -67,7 +67,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8085/employee-service/employee/email/?email=test_email@email.com",
+					"raw": "localhost:8085/employee-service/employee/email?email=test_email@email.com",
 					"host": [
 						"localhost"
 					],
@@ -75,8 +75,7 @@
 					"path": [
 						"employee-service",
 						"employee",
-						"email",
-						""
+						"email"
 					],
 					"query": [
 						{

@@ -60,17 +60,17 @@ public class EmployeeControllerTest {
     @BeforeEach
     public void setupTests() {
     	mockEmp = Employee.builder()
-    			.UserId(0).firstName("Alice").lastName("Test")
+    			.userId(0).firstName("Alice").lastName("Test")
     			.email("tester@tr.net").gender("male").cellPhone("0000000000").build();
-    	mockAddr = Address.builder().addressLine1("000 Null St.").city("Faketon").state("CA").zipCode(11111).build();
+    	mockAddr = Address.builder().addressLine1("000 Null St.").city("Faketon").state("CA").zipCode("11111").build();
     	mockCont = Contact.builder().firstName("Bob").lastName("Test").cellPhone("0030030003").relationship("brother").build();
-    	mockVisaStat = VisaStatus.builder().activeFlag(true).visaType("H1B").startDate(Date.valueOf("2020-01-01")).build();
+    	mockVisaStat = VisaStatus.builder().activeFlag(true).visaType("H1B").startDate("2020-01-01").build();
     	empList = new ArrayList<>();
     }
     
     @Test
     public void CreateNewEmployeeTests_base() throws Exception {
-        when(employeeRepository.createEmployee(mockEmp)).thenReturn(mockEmp);
+        when(employeeRepository.save(mockEmp)).thenReturn(mockEmp);
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.post("/employee/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -85,7 +85,7 @@ public class EmployeeControllerTest {
     
     @Test
     public void CreateNewEmployeeTests_empty() throws Exception {
-        when(employeeRepository.createEmployee(null)).thenReturn(null);
+        when(employeeRepository.save(null)).thenReturn(null);
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.post("/employee/add")
                 .accept(MediaType.APPLICATION_JSON))
@@ -99,7 +99,7 @@ public class EmployeeControllerTest {
     	Pageable p = PageRequest.of(0, 1);
     	empList.add(mockEmp);
     	Page<Employee> pagedMock = new PageImpl<>(empList);
-        when(employeeRepository.listAllEmployee(p)).thenReturn(pagedMock);
+        when(employeeRepository.findAll()).thenReturn(empList);
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.get("/employee/all")
                 .accept(MediaType.APPLICATION_JSON))
@@ -112,7 +112,7 @@ public class EmployeeControllerTest {
     
     @Test
     public void GetEmployeeById_base() throws Exception {
-        when(employeeRepository.findEmployeeById("test_id")).thenReturn(Optional.of(mockEmp));
+        when(employeeRepository.findEmployeeByid("test_id")).thenReturn(Optional.of(mockEmp));
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.get("/employee/test_id")
                 .accept(MediaType.APPLICATION_JSON))
@@ -125,7 +125,7 @@ public class EmployeeControllerTest {
     
     @Test
     public void GetEmployeeById_empty() throws Exception {
-        when(employeeRepository.findEmployeeById("test_empty_id")).thenReturn(Optional.empty());
+        when(employeeRepository.findEmployeeByid("test_empty_id")).thenReturn(Optional.empty());
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.get("/employee/test_empty_id")
                 .accept(MediaType.APPLICATION_JSON))

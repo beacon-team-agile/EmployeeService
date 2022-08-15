@@ -18,14 +18,12 @@ import org.springframework.data.annotation.Id;
 @ToString
 public class VisaStatus {
 
-
 	@Id
 	Integer id;
 	
 	String visaType;
 	
 	Boolean activeFlag;
-
 
 	String startDate;
 

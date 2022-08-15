@@ -21,6 +21,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.teamagile.bfEmployeeApplication.entity.Address;
 import com.teamagile.bfEmployeeApplication.entity.Contact;
 import com.teamagile.bfEmployeeApplication.entity.Employee;
+import com.teamagile.bfEmployeeApplication.entity.PersonalDocument;
 import com.teamagile.bfEmployeeApplication.entity.VisaStatus;
 
 @ActiveProfiles(value = "test")
@@ -35,15 +36,30 @@ public class EmployeeRepositoryTests {
 	Address mockAddr;
 	Contact mockCont;
 	VisaStatus mockVisaStat;
+	PersonalDocument mockPersonalDoc;
 	
     @BeforeEach
     public void setupTests() {
-    	mockEmp = Employee.builder()
-    			.userId(0).firstName("Alice").lastName("Test")
-    			.email("tester@tr.net").gender("male").cellPhone("0000000000").build();
+
     	mockAddr = Address.builder().addressLine1("000 Null St.").city("Faketon").state("CA").zipCode("11111").build();
     	mockCont = Contact.builder().firstName("Bob").lastName("Test").cellPhone("0030030003").relationship("brother").build();
     	mockVisaStat = VisaStatus.builder().activeFlag(true).visaType("H1B").startDate("2020-01-01").build();
+    	mockPersonalDoc = PersonalDocument.builder().title("I9999").path("amazon/etc/etc").build();
+    	List<Address> addrList = new ArrayList<>();
+    	List<Contact> contList = new ArrayList<>();
+    	List<VisaStatus> visaList = new ArrayList<>();
+    	List<PersonalDocument> docList = new ArrayList<>();
+    	
+    	addrList.add(mockAddr);
+    	contList.add(mockCont);
+    	visaList.add(mockVisaStat);
+    	docList.add(mockPersonalDoc);
+    	
+    	mockEmp = Employee.builder()
+    			.userId(0).firstName("Alice").lastName("Test")
+    			.email("tester@tr.net").gender("male").cellPhone("0000000000")
+    			.address(addrList).contact(contList)
+    			.visaStatus(visaList).personalDocument(docList).build();
     	empList = new ArrayList<>();
     }
     

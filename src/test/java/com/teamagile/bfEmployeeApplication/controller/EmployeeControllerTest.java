@@ -34,6 +34,7 @@ import com.teamagile.bfEmployeeApplication.domain.response.SingleEmployeeRespons
 import com.teamagile.bfEmployeeApplication.entity.Address;
 import com.teamagile.bfEmployeeApplication.entity.Contact;
 import com.teamagile.bfEmployeeApplication.entity.Employee;
+import com.teamagile.bfEmployeeApplication.entity.PersonalDocument;
 import com.teamagile.bfEmployeeApplication.entity.VisaStatus;
 import com.teamagile.bfEmployeeApplication.repository.EmployeeRepository;
 
@@ -56,21 +57,35 @@ public class EmployeeControllerTest {
 	Address mockAddr;
 	Contact mockCont;
 	VisaStatus mockVisaStat;
+	PersonalDocument mockPersonalDoc;
 	
     @BeforeEach
     public void setupTests() {
-    	mockEmp = Employee.builder()
-    			.userId(0).firstName("Alice").lastName("Test")
-    			.email("tester@tr.net").gender("male").cellPhone("0000000000").build();
     	mockAddr = Address.builder().addressLine1("000 Null St.").city("Faketon").state("CA").zipCode("11111").build();
     	mockCont = Contact.builder().firstName("Bob").lastName("Test").cellPhone("0030030003").relationship("brother").build();
     	mockVisaStat = VisaStatus.builder().activeFlag(true).visaType("H1B").startDate("2020-01-01").build();
+    	mockPersonalDoc = PersonalDocument.builder().title("I9999").path("amazon/etc/etc").build();
+    	List<Address> addrList = new ArrayList<>();
+    	List<Contact> contList = new ArrayList<>();
+    	List<VisaStatus> visaList = new ArrayList<>();
+    	List<PersonalDocument> docList = new ArrayList<>();
+    	
+    	addrList.add(mockAddr);
+    	contList.add(mockCont);
+    	visaList.add(mockVisaStat);
+    	docList.add(mockPersonalDoc);
+    	
+    	mockEmp = Employee.builder()
+    			.userId(0).firstName("Alice").lastName("Test")
+    			.email("tester@tr.net").gender("male").cellPhone("0000000000")
+    			.address(addrList).contact(contList)
+    			.visaStatus(visaList).personalDocument(docList).build();
     	empList = new ArrayList<>();
     }
     
     @Test
     public void CreateNewEmployeeTests_base() throws Exception {
-        when(employeeRepository.save(mockEmp)).thenReturn(mockEmp);
+        when(employeeRepository.insert(mockEmp)).thenReturn(mockEmp);
         MvcResult result = 
         		mockMvc.perform(MockMvcRequestBuilders.post("/employee/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,6 +93,10 @@ public class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();   	
+        mockAddr.setId(1);
+        mockCont.setId(1);
+        mockPersonalDoc.setId(1);
+        mockVisaStat.setId(1);
         SingleEmployeeResponse resp = new Gson().fromJson(result.getResponse().getContentAsString(), SingleEmployeeResponse.class);
         //assertEquals(resp.getResponseStatus().is_success(), true);
         assertEquals(resp.getEmployee(), mockEmp);

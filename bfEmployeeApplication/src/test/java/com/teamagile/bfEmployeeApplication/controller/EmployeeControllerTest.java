@@ -139,7 +139,7 @@ public class EmployeeControllerTest {
     	empList.add(mockEmp);
         when(employeeRepository.findEmployeesByuserId(999)).thenReturn(empList);
         MvcResult result = 
-        		mockMvc.perform(MockMvcRequestBuilders.get("/userId/999")
+        		mockMvc.perform(MockMvcRequestBuilders.get("/employee/userId/999")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();   	
@@ -153,12 +153,28 @@ public class EmployeeControllerTest {
     	empList.add(mockEmp);
         when(employeeRepository.findEmployeesByEmail("employee@emp")).thenReturn(empList);
         MvcResult result = 
-        		mockMvc.perform(MockMvcRequestBuilders.get("/email/employee@emp")
+        		mockMvc.perform(MockMvcRequestBuilders.get("/employee/email/")
+        		.param("email", "employee@emp")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();   	
         EmployeesResponse resp = new Gson().fromJson(result.getResponse().getContentAsString(), EmployeesResponse.class);
         assertEquals(resp.getResponseStatus().is_success(), true);
         assertEquals(resp.getEmployees(), empList);
+    }
+    
+    @Test
+    public void UpdateEmployeeByIdTests_base() throws Exception {
+        when(employeeRepository.save(mockEmp)).thenReturn(mockEmp);
+        MvcResult result = 
+        		mockMvc.perform(MockMvcRequestBuilders.post("/employee/update/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new Gson().toJson(mockEmp))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();   	
+        SingleEmployeeResponse resp = new Gson().fromJson(result.getResponse().getContentAsString(), SingleEmployeeResponse.class);
+        assertEquals(resp.getResponseStatus().is_success(), true);
+        assertEquals(resp.getEmployee(), mockEmp);
     }
 }

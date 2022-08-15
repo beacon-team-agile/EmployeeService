@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.springframework.data.annotation.Id;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,13 +19,15 @@ import lombok.ToString;
 @ToString
 public class PersonalDocument {
 
-	String id;
+
+	@Id
+	Integer id;
 	
 	String path;
 	
 	String title;
 	
 	String comment;
-	
-	Date createDate;
+
+	String createDate;
 }

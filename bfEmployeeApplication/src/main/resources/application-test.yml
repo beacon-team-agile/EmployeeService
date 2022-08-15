@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: employee-service
+  mvc:
+    servlet:
+      path: /employee-service
+      pathmatch:
+        matching-strategy: ant_path_matcher
+  data:
+    mongodb:
+      uri: mongodb+srv://root:6sBu7UInnUXYN2zH@beaconfire-team-agile.hguyto1.mongodb.net/?retryWrites=true&w=majority
+      database: TestEmployeeService
+
+server:
+  port: 8085
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

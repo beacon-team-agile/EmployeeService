@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -17,15 +18,18 @@ import lombok.ToString;
 @ToString
 public class VisaStatus {
 
-	String id;
+
+	@Id
+	Integer id;
 	
 	String visaType;
 	
 	Boolean activeFlag;
-	
-	Date startDate;
-	
-	Date endDate;
-	
-	Date lastModificationDate;
+
+
+	String startDate;
+
+	String endDate;
+
+	String lastModificationDate;
 }

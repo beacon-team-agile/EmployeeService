@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.springframework.data.annotation.Id;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +20,9 @@ import lombok.ToString;
 @ToString
 public class Contact {
 
-	String id;
+
+	@Id
+	Integer id;
 	
 	String firstName;
 	

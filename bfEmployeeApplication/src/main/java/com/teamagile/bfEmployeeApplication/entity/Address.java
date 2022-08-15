@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.springframework.data.annotation.Id;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,8 +19,10 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Address {
-	
-	String id;
+
+
+	@Id
+	Integer id;
 	
 	String addressLine1;
 	
@@ -28,6 +32,6 @@ public class Address {
 	
 	String state;
 	
-	Integer zipCode;
+	String zipCode;
 
 }

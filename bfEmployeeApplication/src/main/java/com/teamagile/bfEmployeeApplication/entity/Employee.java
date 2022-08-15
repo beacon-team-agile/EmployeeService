@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.springframework.data.annotation.Id;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,9 +19,11 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Employee {
-	String Id;
+
+	@Id
+	String id;
 	
-	Integer UserId;
+	Integer userId;
 	
 	String firstName;
 	
@@ -39,23 +43,23 @@ public class Employee {
 	
 	String ssn;
 	
-	Date dob;
-	
-	Date startDate;
-	
-	Date endDate;
+	String dob;
+
+	String startDate;
+
+	String endDate;
 	
 	String driverLicense;
-	
-	Date driverLicenseExpiration;
+
+	String driverLicenseExpiration;
 	
 	Integer houseId;
 	
-	List<Contact> contactList;
+	List<Contact> contact;
 
-	List<Address> addressList;
+	List<Address> address;
 	
-	List<VisaStatus> visaStatusList;
+	List<VisaStatus> visaStatus;
 
-	List<PersonalDocument> personalDocumentList;
+	List<PersonalDocument> personalDocument;
 }

@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 import com.teamagile.employeeService.EmployeeServiceApplication;
 
-@SpringBootTest(classes = EmployeeServiceApplication.class)
+@SpringBootTest
 @ServletComponentScan
 class EmployeeServiceApplicationTests {
 

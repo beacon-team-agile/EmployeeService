@@ -59,28 +59,28 @@ public class PersonalDocumentController {
     	
     }
     
-    @PostMapping(value = "upload_to_user", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_MIXED_VALUE })
+    @PostMapping(value = "upload_to_user", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseStatus UploadNewDocumentToUser(
     		@RequestPart MultipartFile multifile
-    		,@RequestParam PersonalDocumentUploadRequest uploadrequest) throws IllegalStateException, IOException {
-    	Employee oEmployee = employeeRepository.findById(uploadrequest.getUserid()).orElseThrow(); 
-    	String title = oEmployee.getUserId() + "_" +  uploadrequest.getTitle();
+    		,@RequestPart String userid, @RequestPart String title, @RequestPart String comment) throws IllegalStateException, IOException {
+    	Employee oEmployee = employeeRepository.findById(userid).orElseThrow(); 
+    	String fileTitle = oEmployee.getUserId() + "_" +  title;
     	
     	Map<String, String> metadata = new HashMap<>();
         metadata.put(HttpHeaders.CONTENT_TYPE, multifile.getContentType());
         metadata.put(HttpHeaders.CONTENT_LENGTH, String.valueOf(multifile.getSize()));
         
         
-    	ResponseStatus rStatus = fileService.upload(title, multifile.getInputStream(), metadata);
+    	ResponseStatus rStatus = fileService.upload(fileTitle, multifile.getInputStream(), metadata);
     	if(rStatus.is_success()) {
     		List<PersonalDocument> pd = oEmployee.getPersonalDocument();
     		pd.add(PersonalDocument.builder()
-    				.path(title)
-    				.title(uploadrequest.getTitle())
-    				.comment(uploadrequest.getComment())
+    				.path(fileTitle)
+    				.title(title)
+    				.comment(comment)
     				.createDate(Calendar.getInstance().toString())
     				.build());
-        	return ResponseStatus.builder().is_success(true).message("test").build();
+        	return ResponseStatus.builder().is_success(true).message(rStatus.getMessage()).build();
  
     	}else {
     		return rStatus;

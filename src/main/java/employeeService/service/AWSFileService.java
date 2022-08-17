@@ -37,7 +37,7 @@ public class AWSFileService {
 			ObjectMetadata metadata = new ObjectMetadata();
 			md.forEach((s1, s2) -> {metadata.addUserMetadata(s1, s2);});
 			PutObjectResult res = s3.putObject(BUCKET, fileName, inputStr, metadata);
-			return ResponseStatus.builder().is_success(true).message("File uploaded").build();
+			return ResponseStatus.builder().is_success(true).message(fileName).build();
 		}catch(Exception e) {
 			return ResponseStatus.builder().is_success(false).message(e.getMessage()).build();
 			

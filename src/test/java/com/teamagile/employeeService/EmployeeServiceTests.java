@@ -1,10 +1,10 @@
-package com.teamagile.bfEmployeeApplication;
+package com.teamagile.employeeService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BfEmployeeApplicationTests {
+class EmployeeServiceTests {
 
 	@Test
 	void contextLoads() {

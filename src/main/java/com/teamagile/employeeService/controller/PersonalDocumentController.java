@@ -50,7 +50,8 @@ public class PersonalDocumentController {
 	
 	
     @PostMapping(value = "upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseStatus UploadNewDocument(@RequestPart MultipartFile multifile, @RequestPart String filename) throws IllegalStateException, IOException {
+    public ResponseStatus UploadNewDocument(@RequestPart MultipartFile multifile, @RequestPart String filename) 
+    		throws IllegalStateException, IOException {
     	//@RequestPart PersonalDocumentUploadRequest uploadRequest, 
     	
     	Map<String, String> metadata = new HashMap<>();
@@ -66,14 +67,9 @@ public class PersonalDocumentController {
     		@RequestPart MultipartFile multifile
     		,@RequestPart String userid, @RequestPart String title, @RequestPart String comment) throws IllegalStateException, IOException {
     	Employee oEmployee = employeeRepository.findById(userid).get(); 
-    	String origName = multifile.getOriginalFilename().replace(" ", "_");
-    	if(!origName.endsWith(".pdf")) {
-
-        	return ResponseStatus.builder().is_success(false).message("Unsupported file type").build();
-    	}
     	SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
     	String dateFormat = sdf.format(Calendar.getInstance().getTime());
-    	String fileTitle = oEmployee.getUserId() + "_" + dateFormat.replace(" ", "_") + "_" + title + ".pdf";
+    	String fileTitle = oEmployee.getUserId() + "_" + dateFormat.replace(" ", "_") + "_" + title.replace(" ", "_");
     	
     	Map<String, String> metadata = new HashMap<>();
         metadata.put(HttpHeaders.CONTENT_TYPE, multifile.getContentType());

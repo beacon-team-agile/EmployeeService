@@ -1,4 +1,4 @@
-package employeeService.service;
+package com.teamagile.employeeService.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +18,8 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
-
-import employeeService.domain.FileDownloadInfo;
-import employeeService.domain.response.common.ResponseStatus;
+import com.teamagile.employeeService.domain.FileDownloadInfo;
+import com.teamagile.employeeService.domain.response.common.ResponseStatus;
 
 @Service
 public class AWSFileService {

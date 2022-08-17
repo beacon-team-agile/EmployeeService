@@ -1,6 +1,7 @@
-package employeeService.entity;
+package com.teamagile.employeeService.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +19,22 @@ import org.springframework.data.annotation.Id;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class VisaStatus {
+public class Contact {
 
 	@Id
 	Integer id;
 	
-	String visaType;
+	String firstName;
 	
-	Boolean activeFlag;
-
-	String startDate;
-
-	String endDate;
-
-	String lastModificationDate;
+	String lastName;
+	
+	String cellPhone;
+	
+	String alternatePhone;
+	
+	String email;
+	
+	String relationship;
+	
+	String type;
 }

@@ -1,4 +1,4 @@
-package employeeService.controller;
+package com.teamagile.employeeService.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import employeeService.domain.FileDownloadInfo;
-import employeeService.domain.request.PersonalDocumentUploadRequest;
-import employeeService.domain.response.SingleEmployeeResponse;
-import employeeService.domain.response.common.ResponseStatus;
-import employeeService.entity.Employee;
-import employeeService.entity.PersonalDocument;
-import employeeService.repository.EmployeeRepository;
-import employeeService.service.AWSFileService;
+import com.teamagile.employeeService.domain.FileDownloadInfo;
+import com.teamagile.employeeService.domain.request.PersonalDocumentUploadRequest;
+import com.teamagile.employeeService.domain.response.SingleEmployeeResponse;
+import com.teamagile.employeeService.domain.response.common.ResponseStatus;
+import com.teamagile.employeeService.entity.Employee;
+import com.teamagile.employeeService.entity.PersonalDocument;
+import com.teamagile.employeeService.repository.EmployeeRepository;
+import com.teamagile.employeeService.service.AWSFileService;
 
 @RestController
 @RequestMapping("employee/document")

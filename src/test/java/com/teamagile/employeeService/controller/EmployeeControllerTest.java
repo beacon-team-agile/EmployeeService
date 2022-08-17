@@ -23,25 +23,24 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.google.gson.Gson;
+import com.teamagile.employeeService.controller.EmployeeController;
+import com.teamagile.employeeService.domain.response.EmployeesResponse;
+import com.teamagile.employeeService.domain.response.SingleEmployeeResponse;
+import com.teamagile.employeeService.entity.Address;
+import com.teamagile.employeeService.entity.Contact;
+import com.teamagile.employeeService.entity.Employee;
+import com.teamagile.employeeService.entity.PersonalDocument;
+import com.teamagile.employeeService.entity.VisaStatus;
+import com.teamagile.employeeService.repository.EmployeeRepository;
 
-import employeeService.controller.EmployeeController;
-import employeeService.domain.response.EmployeesResponse;
-import employeeService.domain.response.SingleEmployeeResponse;
-import employeeService.entity.Address;
-import employeeService.entity.Contact;
-import employeeService.entity.Employee;
-import employeeService.entity.PersonalDocument;
-import employeeService.entity.VisaStatus;
-import employeeService.repository.EmployeeRepository;
-
-
-
+@ActiveProfiles(value = "test")
 @WebMvcTest(EmployeeController.class)
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)

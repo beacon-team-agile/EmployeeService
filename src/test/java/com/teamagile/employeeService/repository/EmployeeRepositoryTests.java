@@ -11,22 +11,28 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import employeeService.entity.Address;
-import employeeService.entity.Contact;
-import employeeService.entity.Employee;
-import employeeService.entity.PersonalDocument;
-import employeeService.entity.VisaStatus;
-import employeeService.repository.EmployeeRepository;
+import com.teamagile.employeeService.entity.Address;
+import com.teamagile.employeeService.entity.Contact;
+import com.teamagile.employeeService.entity.Employee;
+import com.teamagile.employeeService.entity.PersonalDocument;
+import com.teamagile.employeeService.entity.VisaStatus;
+import com.teamagile.employeeService.repository.EmployeeRepository;
 
 @ActiveProfiles(value = "test")
-@DataMongoTest
+@DataMongoTest()
+@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
 public class EmployeeRepositoryTests {
 	
 	@Autowired

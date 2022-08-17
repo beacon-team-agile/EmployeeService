@@ -1,4 +1,4 @@
-package employeeService.entity;
+package com.teamagile.employeeService.entity;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package employeeService.domain.response.common;
+package com.teamagile.employeeService.domain.response.common;
 
 import lombok.Builder;
 import lombok.Getter;

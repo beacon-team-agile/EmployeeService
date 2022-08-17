@@ -1,4 +1,4 @@
-package employeeService.controller;
+package com.teamagile.employeeService.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
-import employeeService.domain.response.EmployeesResponse;
-import employeeService.domain.response.SingleEmployeeResponse;
-import employeeService.domain.response.common.ResponseStatus;
-import employeeService.entity.*;
-import employeeService.repository.*;
+import com.teamagile.employeeService.domain.response.EmployeesResponse;
+import com.teamagile.employeeService.domain.response.SingleEmployeeResponse;
+import com.teamagile.employeeService.domain.response.common.ResponseStatus;
+import com.teamagile.employeeService.entity.*;
+import com.teamagile.employeeService.repository.*;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package employeeService.domain;
+package com.teamagile.employeeService.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

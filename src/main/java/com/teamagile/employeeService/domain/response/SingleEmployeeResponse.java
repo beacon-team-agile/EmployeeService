@@ -1,7 +1,8 @@
-package employeeService.domain.response;
+package com.teamagile.employeeService.domain.response;
 
-import employeeService.domain.response.common.ResponseStatus;
-import employeeService.entity.Employee;
+import com.teamagile.employeeService.domain.response.common.ResponseStatus;
+import com.teamagile.employeeService.entity.Employee;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

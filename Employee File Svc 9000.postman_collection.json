@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "148e8575-0afe-42e4-920e-af0f94b8e5b9",
+		"name": "Employee File Svc 9000",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22407837"
+	},
+	"item": [
+		{
+			"name": "employee-service/employee/document/upload_to_user/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userid",
+							"value": "62fd1735f821ff42720f444c",
+							"description": "[GET VALID USER ID]",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "UserTitle",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "Comment",
+							"type": "text"
+						},
+						{
+							"key": "multifile",
+							"description": "[ADD YOUR FILE HERE]",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9000/employee-service/employee/document/upload_to_user/",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"employee-service",
+						"employee",
+						"document",
+						"upload_to_user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employee-service/employee/document/download?fileName=test02.png",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/employee-service/employee/document/download?fileName=test02.png",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"employee-service",
+						"employee",
+						"document",
+						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "test02.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employee-service/employee/document/upload/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "testdoc00",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "this is a test document",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "comment",
+							"value": "comment",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "multiFile",
+							"type": "file",
+							"src": "/D:/Downloads-Real/quizf.drawio.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9000/employee-service/employee/document/upload/",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"employee-service",
+						"employee",
+						"document",
+						"upload",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,4 +1,4 @@
-package com.teamagile.bfEmployeeApplication.entity;
+package employeeService.entity;
 
 import java.sql.Date;
 
@@ -18,16 +18,18 @@ import org.springframework.data.annotation.Id;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class PersonalDocument {
+public class VisaStatus {
 
 	@Id
 	Integer id;
 	
-	String path;
+	String visaType;
 	
-	String title;
-	
-	String comment;
+	Boolean activeFlag;
 
-	String createDate;
+	String startDate;
+
+	String endDate;
+
+	String lastModificationDate;
 }

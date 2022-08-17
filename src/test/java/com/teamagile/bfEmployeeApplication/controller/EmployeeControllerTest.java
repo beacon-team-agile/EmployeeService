@@ -29,14 +29,16 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.google.gson.Gson;
-import com.teamagile.bfEmployeeApplication.domain.response.EmployeesResponse;
-import com.teamagile.bfEmployeeApplication.domain.response.SingleEmployeeResponse;
-import com.teamagile.bfEmployeeApplication.entity.Address;
-import com.teamagile.bfEmployeeApplication.entity.Contact;
-import com.teamagile.bfEmployeeApplication.entity.Employee;
-import com.teamagile.bfEmployeeApplication.entity.PersonalDocument;
-import com.teamagile.bfEmployeeApplication.entity.VisaStatus;
-import com.teamagile.bfEmployeeApplication.repository.EmployeeRepository;
+
+import employeeService.controller.EmployeeController;
+import employeeService.domain.response.EmployeesResponse;
+import employeeService.domain.response.SingleEmployeeResponse;
+import employeeService.entity.Address;
+import employeeService.entity.Contact;
+import employeeService.entity.Employee;
+import employeeService.entity.PersonalDocument;
+import employeeService.entity.VisaStatus;
+import employeeService.repository.EmployeeRepository;
 
 
 

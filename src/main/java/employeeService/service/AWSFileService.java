@@ -1,4 +1,4 @@
-package com.teamagile.bfEmployeeApplication.service;
+package employeeService.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +18,9 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
-import com.teamagile.bfEmployeeApplication.domain.FileDownloadInfo;
-import com.teamagile.bfEmployeeApplication.domain.response.common.ResponseStatus;
+
+import employeeService.domain.FileDownloadInfo;
+import employeeService.domain.response.common.ResponseStatus;
 
 @Service
 public class AWSFileService {
@@ -29,6 +30,7 @@ public class AWSFileService {
 		this.s3 = s3;
 	}
     private static final String BUCKET = "bfagi-userdocs";
+    public static String get_bucket_name() {return BUCKET;};
 	
 	public ResponseStatus upload(String fileName, InputStream inputStr, Map<String, String> md){
 		try {

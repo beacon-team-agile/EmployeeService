@@ -1,16 +1,17 @@
-package com.teamagile.bfEmployeeApplication.controller;
+package employeeService.controller;
 
-import com.teamagile.bfEmployeeApplication.domain.response.EmployeesResponse;
-import com.teamagile.bfEmployeeApplication.domain.response.SingleEmployeeResponse;
-import com.teamagile.bfEmployeeApplication.domain.response.common.ResponseStatus;
-import com.teamagile.bfEmployeeApplication.entity.*;
-import com.teamagile.bfEmployeeApplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
+
+import employeeService.domain.response.EmployeesResponse;
+import employeeService.domain.response.SingleEmployeeResponse;
+import employeeService.domain.response.common.ResponseStatus;
+import employeeService.entity.*;
+import employeeService.repository.*;
 
 import java.util.List;
 import java.util.Optional;

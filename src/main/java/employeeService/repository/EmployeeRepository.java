@@ -1,8 +1,9 @@
-package com.teamagile.bfEmployeeApplication.repository;
+package employeeService.repository;
 
-import com.teamagile.bfEmployeeApplication.entity.Employee;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import employeeService.entity.Employee;
 
 import java.util.List;
 import java.util.Optional;

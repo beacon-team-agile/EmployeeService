@@ -1,7 +1,6 @@
-package com.teamagile.bfEmployeeApplication.entity;
+package employeeService.entity;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,18 +18,16 @@ import org.springframework.data.annotation.Id;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class Address {
+public class PersonalDocument {
+
 	@Id
 	Integer id;
 	
-	String addressLine1;
+	String path;
 	
-	String addressLine2;
+	String title;
 	
-	String city;
-	
-	String state;
-	
-	String zipCode;
+	String comment;
 
+	String createDate;
 }

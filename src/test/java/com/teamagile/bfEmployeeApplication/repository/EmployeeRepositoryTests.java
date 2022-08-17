@@ -18,11 +18,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.teamagile.bfEmployeeApplication.entity.Address;
-import com.teamagile.bfEmployeeApplication.entity.Contact;
-import com.teamagile.bfEmployeeApplication.entity.Employee;
-import com.teamagile.bfEmployeeApplication.entity.PersonalDocument;
-import com.teamagile.bfEmployeeApplication.entity.VisaStatus;
+import employeeService.entity.Address;
+import employeeService.entity.Contact;
+import employeeService.entity.Employee;
+import employeeService.entity.PersonalDocument;
+import employeeService.entity.VisaStatus;
+import employeeService.repository.EmployeeRepository;
 
 @ActiveProfiles(value = "test")
 @DataMongoTest

@@ -1,10 +1,12 @@
-package com.teamagile.bfEmployeeApplication.controller;
+package employeeService.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -21,14 +23,14 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.teamagile.bfEmployeeApplication.domain.FileDownloadInfo;
-import com.teamagile.bfEmployeeApplication.domain.request.PersonalDocumentUploadRequest;
-import com.teamagile.bfEmployeeApplication.domain.response.SingleEmployeeResponse;
-import com.teamagile.bfEmployeeApplication.domain.response.common.ResponseStatus;
-import com.teamagile.bfEmployeeApplication.entity.Employee;
-import com.teamagile.bfEmployeeApplication.entity.PersonalDocument;
-import com.teamagile.bfEmployeeApplication.repository.EmployeeRepository;
-import com.teamagile.bfEmployeeApplication.service.AWSFileService;
+import employeeService.domain.FileDownloadInfo;
+import employeeService.domain.request.PersonalDocumentUploadRequest;
+import employeeService.domain.response.SingleEmployeeResponse;
+import employeeService.domain.response.common.ResponseStatus;
+import employeeService.entity.Employee;
+import employeeService.entity.PersonalDocument;
+import employeeService.repository.EmployeeRepository;
+import employeeService.service.AWSFileService;
 
 @RestController
 @RequestMapping("employee/document")
@@ -57,17 +59,32 @@ public class PersonalDocumentController {
     	
     }
     
-    @PostMapping(value = "upload_to_user/{userId}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping(value = "upload_to_user", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_MIXED_VALUE })
     public ResponseStatus UploadNewDocumentToUser(
-    		@RequestPart MultipartFile multiFile
-    		,@RequestParam String userId) throws IllegalStateException, IOException {
-    	//@RequestPart PersonalDocumentUploadRequest uploadRequest, 
+    		@RequestPart MultipartFile multifile
+    		,@RequestParam PersonalDocumentUploadRequest uploadrequest) throws IllegalStateException, IOException {
+    	Employee oEmployee = employeeRepository.findById(uploadrequest.getUserid()).orElseThrow(); 
+    	String title = oEmployee.getUserId() + "_" +  uploadrequest.getTitle();
     	
     	Map<String, String> metadata = new HashMap<>();
-        metadata.put(HttpHeaders.CONTENT_TYPE, multiFile.getContentType());
-        metadata.put(HttpHeaders.CONTENT_LENGTH, String.valueOf(multiFile.getSize()));
-    	fileService.upload(userId, multiFile.getInputStream(), metadata);
-    	return ResponseStatus.builder().is_success(true).message("test").build();
+        metadata.put(HttpHeaders.CONTENT_TYPE, multifile.getContentType());
+        metadata.put(HttpHeaders.CONTENT_LENGTH, String.valueOf(multifile.getSize()));
+        
+        
+    	ResponseStatus rStatus = fileService.upload(title, multifile.getInputStream(), metadata);
+    	if(rStatus.is_success()) {
+    		List<PersonalDocument> pd = oEmployee.getPersonalDocument();
+    		pd.add(PersonalDocument.builder()
+    				.path(title)
+    				.title(uploadrequest.getTitle())
+    				.comment(uploadrequest.getComment())
+    				.createDate(Calendar.getInstance().toString())
+    				.build());
+        	return ResponseStatus.builder().is_success(true).message("test").build();
+ 
+    	}else {
+    		return rStatus;
+    	}
     	
     }
     

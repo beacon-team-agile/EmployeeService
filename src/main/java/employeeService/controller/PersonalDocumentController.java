@@ -65,7 +65,7 @@ public class PersonalDocumentController {
     public ResponseStatus UploadNewDocumentToUser(
     		@RequestPart MultipartFile multifile
     		,@RequestPart String userid, @RequestPart String title, @RequestPart String comment) throws IllegalStateException, IOException {
-    	Employee oEmployee = employeeRepository.findById(userid).orElseThrow(); 
+    	Employee oEmployee = employeeRepository.findById(userid).get(); 
     	String origName = multifile.getOriginalFilename().replace(" ", "_");
     	if(!origName.endsWith(".pdf")) {
 

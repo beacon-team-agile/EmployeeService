@@ -6,6 +6,9 @@ import com.teamagile.bfEmployeeApplication.domain.response.common.ResponseStatus
 import com.teamagile.bfEmployeeApplication.entity.*;
 import com.teamagile.bfEmployeeApplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
@@ -251,6 +254,23 @@ public class EmployeeController {
                                 .build()
                 )
                 .employee(updated_employee)
+                .build();
+    }
+    
+    @GetMapping("list/{pageNo}")
+    public EmployeesResponse GetEmployeeList(@PathVariable Integer pageNo, @RequestParam Integer pageSize) {
+
+    	Pageable p = PageRequest.of(pageNo, pageSize);
+        Page<Employee> pageReturn = employeeRepository.findAll(p);
+
+        return EmployeesResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully Getting all employee!")
+                                .build()
+                )
+                .employees(pageReturn.toList())
                 .build();
     }
 }

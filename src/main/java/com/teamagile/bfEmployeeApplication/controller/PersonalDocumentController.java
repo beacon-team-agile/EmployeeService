@@ -46,20 +46,34 @@ public class PersonalDocumentController {
 	
 	
     @PostMapping(value = "upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseStatus UploadNewDocument(@RequestPart MultipartFile multiFile, @RequestParam String fileName) throws IllegalStateException, IOException {
+    public ResponseStatus UploadNewDocument(@RequestPart MultipartFile multifile, @RequestPart String filename) throws IllegalStateException, IOException {
+    	//@RequestPart PersonalDocumentUploadRequest uploadRequest, 
+    	
+    	Map<String, String> metadata = new HashMap<>();
+        metadata.put(HttpHeaders.CONTENT_TYPE, multifile.getContentType());
+        metadata.put(HttpHeaders.CONTENT_LENGTH, String.valueOf(multifile.getSize()));
+    	ResponseStatus rStatus = fileService.upload(filename, multifile.getInputStream(), metadata);
+    	return rStatus;
+    	
+    }
+    
+    @PostMapping(value = "upload_to_user/{userId}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseStatus UploadNewDocumentToUser(
+    		@RequestPart MultipartFile multiFile
+    		,@RequestParam String userId) throws IllegalStateException, IOException {
     	//@RequestPart PersonalDocumentUploadRequest uploadRequest, 
     	
     	Map<String, String> metadata = new HashMap<>();
         metadata.put(HttpHeaders.CONTENT_TYPE, multiFile.getContentType());
         metadata.put(HttpHeaders.CONTENT_LENGTH, String.valueOf(multiFile.getSize()));
-    	fileService.upload(fileName, multiFile.getInputStream(), metadata);
+    	fileService.upload(userId, multiFile.getInputStream(), metadata);
     	return ResponseStatus.builder().is_success(true).message("test").build();
     	
     }
     
     @GetMapping("/download")
-    public ResponseEntity<ByteArrayResource> downloadFile(@RequestParam String fileName) {
-      FileDownloadInfo newFile = fileService.download(fileName);
+    public ResponseEntity<ByteArrayResource> downloadFile(@RequestParam String filename) {
+      FileDownloadInfo newFile = fileService.download(filename);
       byte[] b = newFile.getFile_bytestream();
       ByteArrayResource resource = new ByteArrayResource(b);
       return ResponseEntity

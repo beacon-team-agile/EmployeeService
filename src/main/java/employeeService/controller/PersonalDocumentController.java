@@ -2,9 +2,11 @@ package employeeService.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -64,7 +66,14 @@ public class PersonalDocumentController {
     		@RequestPart MultipartFile multifile
     		,@RequestPart String userid, @RequestPart String title, @RequestPart String comment) throws IllegalStateException, IOException {
     	Employee oEmployee = employeeRepository.findById(userid).orElseThrow(); 
-    	String fileTitle = oEmployee.getUserId() + "_" +  title;
+    	String origName = multifile.getOriginalFilename().replace(" ", "_");
+    	if(!origName.endsWith(".pdf")) {
+
+        	return ResponseStatus.builder().is_success(false).message("Unsupported file type").build();
+    	}
+    	SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+    	String dateFormat = sdf.format(Calendar.getInstance().getTime());
+    	String fileTitle = oEmployee.getUserId() + "_" + dateFormat.replace(" ", "_") + "_" + title + ".pdf";
     	
     	Map<String, String> metadata = new HashMap<>();
         metadata.put(HttpHeaders.CONTENT_TYPE, multifile.getContentType());
@@ -78,8 +87,10 @@ public class PersonalDocumentController {
     				.path(fileTitle)
     				.title(title)
     				.comment(comment)
-    				.createDate(Calendar.getInstance().toString())
+    				.createDate(dateFormat)
     				.build());
+    		oEmployee.setPersonalDocument(pd);
+    		employeeRepository.save(oEmployee);
         	return ResponseStatus.builder().is_success(true).message(rStatus.getMessage()).build();
  
     	}else {

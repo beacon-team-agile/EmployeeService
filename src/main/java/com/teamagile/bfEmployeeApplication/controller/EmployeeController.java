@@ -1,5 +1,6 @@
 package com.teamagile.bfEmployeeApplication.controller;
 
+import com.teamagile.bfEmployeeApplication.domain.request.VisaStatusUpdateRequest;
 import com.teamagile.bfEmployeeApplication.domain.response.EmployeesResponse;
 import com.teamagile.bfEmployeeApplication.domain.response.SingleEmployeeResponse;
 import com.teamagile.bfEmployeeApplication.domain.response.common.ResponseStatus;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,7 +115,7 @@ public class EmployeeController {
                 .responseStatus(
                         ResponseStatus.builder()
                                 .is_success(true)
-                                .message("Deleted Employee")
+                                .message("Found Employee")
                                 .build()
                 )
                 .employee(employeeOptional.get())
@@ -251,6 +253,56 @@ public class EmployeeController {
                                 .build()
                 )
                 .employee(updated_employee)
+                .build();
+    }
+
+    @PatchMapping("/updateVisaStatus")
+    public SingleEmployeeResponse updateEmployeeById(@RequestParam String id,
+                                                     @RequestBody VisaStatusUpdateRequest visaStatusUpdateRequest) {
+
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);
+
+        if (!employeeOptional.isPresent()) {
+            return SingleEmployeeResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find employee")
+                                    .build()
+                    )
+                    .employee(null)
+                    .build();
+        }
+
+        Employee employee = employeeOptional.get();
+
+        VisaStatus visaStatus;
+
+        if(employee.getVisaStatus().size()==0) {
+            visaStatus = new VisaStatus();
+            visaStatus.setId(1);
+        }else{
+            //assume has at most one
+            visaStatus = employee.getVisaStatus().get(0);
+        }
+
+        Date date = new Date();
+
+        visaStatus.setVisaType(visaStatusUpdateRequest.getVisaStatus());
+        visaStatus.setStartDate(visaStatusUpdateRequest.getStartDate());
+        visaStatus.setEndDate(visaStatusUpdateRequest.getEndDate());
+        visaStatus.setLastModificationDate(String.valueOf(date));
+
+        employeeRepository.save(employee);
+
+        return SingleEmployeeResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully updating employee's visa status!")
+                                .build()
+                )
+                .employee(employee)
                 .build();
     }
 }

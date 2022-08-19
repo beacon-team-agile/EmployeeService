@@ -259,8 +259,8 @@ public class EmployeeController {
                 .build();
     }
 
-    @PatchMapping("/updateVisaStatus")
-    public SingleEmployeeResponse updateEmployeeById(@RequestParam String id,
+    @PostMapping("/updateVisaStatus")
+    public SingleEmployeeResponse updateEmployeeVisaStatusById(@RequestParam String id,
                                                      @RequestBody VisaStatusUpdateRequest visaStatusUpdateRequest) {
 
         Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);

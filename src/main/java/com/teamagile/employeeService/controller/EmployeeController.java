@@ -188,7 +188,7 @@ public class EmployeeController {
     }
 
 
-    @PatchMapping("update/{id}")
+    @PostMapping("update/{id}")
     public SingleEmployeeResponse updateEmployeeById(@PathVariable String id,
                                                      @RequestBody Employee employee) {
         Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);

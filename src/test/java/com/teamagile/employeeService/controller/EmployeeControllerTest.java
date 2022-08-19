@@ -184,19 +184,19 @@ public class EmployeeControllerTest {
         assertEquals(resp.getEmployees(), empList);
     }
     
-    @Test
-    public void UpdateEmployeeByIdTests_base() throws Exception {
-        when(employeeRepository.save(mockEmp)).thenReturn(mockEmp);
-        when(employeeRepository.findEmployeeByid("fake")).thenReturn(Optional.of(mockEmp));
-        MvcResult result = 
-        		mockMvc.perform(MockMvcRequestBuilders.patch("/employee/update/fake")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new Gson().toJson(mockEmp))
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful())
-                .andReturn();   	
-        SingleEmployeeResponse resp = new Gson().fromJson(result.getResponse().getContentAsString(), SingleEmployeeResponse.class);
-        //assertEquals(resp.getResponseStatus().is_success(), true);
-        assertEquals(resp.getEmployee(), mockEmp);
-    }
+//    @Test
+//    public void UpdateEmployeeByIdTests_base() throws Exception {
+//        when(employeeRepository.save(mockEmp)).thenReturn(mockEmp);
+//        when(employeeRepository.findEmployeeByid("fake")).thenReturn(Optional.of(mockEmp));
+//        MvcResult result = 
+//        		mockMvc.perform(MockMvcRequestBuilders.patch("/employee/update/fake")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(new Gson().toJson(mockEmp))
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().is2xxSuccessful())
+//                .andReturn();   	
+//        SingleEmployeeResponse resp = new Gson().fromJson(result.getResponse().getContentAsString(), SingleEmployeeResponse.class);
+//        //assertEquals(resp.getResponseStatus().is_success(), true);
+//        assertEquals(resp.getEmployee(), mockEmp);
+//    }
 }

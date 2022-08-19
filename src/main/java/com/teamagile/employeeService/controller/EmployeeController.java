@@ -1,5 +1,6 @@
 package com.teamagile.employeeService.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,12 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
+import com.teamagile.employeeService.domain.request.VisaStatusUpdateRequest;
 import com.teamagile.employeeService.domain.response.EmployeesResponse;
 import com.teamagile.employeeService.domain.response.SingleEmployeeResponse;
 import com.teamagile.employeeService.domain.response.common.ResponseStatus;
 import com.teamagile.employeeService.entity.*;
 import com.teamagile.employeeService.repository.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,7 +120,7 @@ public class EmployeeController {
                 .responseStatus(
                         ResponseStatus.builder()
                                 .is_success(true)
-                                .message("Deleted Employee")
+                                .message("Found Employee")
                                 .build()
                 )
                 .employee(employeeOptional.get())
@@ -257,6 +260,57 @@ public class EmployeeController {
                 .employee(updated_employee)
                 .build();
     }
+
+    @PostMapping("/updateVisaStatus")
+    public SingleEmployeeResponse updateEmployeeVisaStatusById(@RequestParam String id,
+                                                     @RequestBody VisaStatusUpdateRequest visaStatusUpdateRequest) {
+
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByid(id);
+
+        if (!employeeOptional.isPresent()) {
+            return SingleEmployeeResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find employee")
+                                    .build()
+                    )
+                    .employee(null)
+                    .build();
+        }
+
+        Employee employee = employeeOptional.get();
+
+        VisaStatus visaStatus;
+
+        if(employee.getVisaStatus().size()==0) {
+            visaStatus = new VisaStatus();
+            visaStatus.setId(1);
+        }else{
+            //assume has at most one
+            visaStatus = employee.getVisaStatus().get(0);
+        }
+
+        Date date = new Date();
+
+        visaStatus.setVisaType(visaStatusUpdateRequest.getVisaStatus());
+        visaStatus.setStartDate(visaStatusUpdateRequest.getStartDate());
+        visaStatus.setEndDate(visaStatusUpdateRequest.getEndDate());
+        visaStatus.setLastModificationDate(String.valueOf(date));
+
+        employeeRepository.save(employee);
+
+        return SingleEmployeeResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully updating employee's visa status!")
+                                .build()
+                )
+                .employee(employee)
+            .build();
+    }
+
     
     @GetMapping("list/{pageNo}")
     public EmployeesResponse GetEmployeeList(@PathVariable Integer pageNo, @RequestParam Integer pageSize) {
@@ -272,6 +326,7 @@ public class EmployeeController {
                                 .build()
                 )
                 .employees(pageReturn.toList())
+
                 .build();
     }
 }
